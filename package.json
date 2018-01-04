@@ -1,0 +1,83 @@
+{
+  "name": "dawdle-server",
+  "version": "0.1.0",
+  "author": "Nikolay Stoynov",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arvigeus/dawdle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arvigeus/dawdle/issues"
+  },
+  "description": "A social framework for building friendships",
+  "homepage": "https://github.com/arvigeus/dawdle#readme",
+  "keywords": ["chat", "messages", "friends"],
+  "main": "src/index.js",
+  "scripts": {
+    "start": "rimraf ./build && webpack --config webpack.config.dev.js",
+    "precommit": "lint-staged",
+    "lint": "eslint --ignore-path .gitignore ."
+  },
+  "lint-staged": {
+    "*.{js,json,graphql,md}": ["prettier --write", "git add"]
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 7
+    },
+    "extends": ["node", "esnext"],
+    "plugins": ["import", "babel"],
+    "rules": {
+      "import/no-nodejs-modules": "off",
+      "no-console": [
+        "error",
+        {
+          "allow": ["warn", "error", "info"]
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.35",
+    "@babel/node": "7.0.0-beta.35",
+    "@babel/polyfill": "^7.0.0-beta.35",
+    "@babel/preset-env": "7.0.0-beta.35",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "8.0.0-beta.0",
+    "dotenv-webpack": "^1.5.4",
+    "eslint": "^4.13.1",
+    "eslint-config-esnext": "^2.0.0",
+    "eslint-config-node": "^2.0.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.8.0",
+    "husky": "^0.14.3",
+    "koa": "^2.4.1",
+    "lint-staged": "^5.0.0",
+    "nodemon-webpack-plugin": "^0.1.6",
+    "prettier": "^1.9.2",
+    "rimraf": "^2.6.2",
+    "webpack": "^3.8.1",
+    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
+    "pg": "^7.4.0",
+    "sequelize": "^4.28.6",
+    "source-map-support": "^0.5.0"
+  }
+}
