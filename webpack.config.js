@@ -7,10 +7,13 @@ const nodeExternals = require("webpack-node-externals");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: ["@babel/polyfill", "./src/server.js"],
+  entry: ["@babel/polyfill", "./src/"],
   output: {
-    path: path.resolve("./build"),
+    path: path.resolve("./dist"),
     filename: "server.js"
+  },
+  resolve: {
+    modules: ["node_modules", path.join(__dirname, "src")]
   },
   module: {
     rules: [
