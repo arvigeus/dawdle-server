@@ -5,6 +5,8 @@ import koaBody from "koa-bodyparser";
 import cors from "@koa/cors";
 import { graphqlKoa, graphiqlKoa } from "apollo-server-koa";
 
+import schema from "./data/schema";
+
 (async () => {
   try {
     const app = new Koa();
@@ -15,8 +17,8 @@ import { graphqlKoa, graphiqlKoa } from "apollo-server-koa";
     // koaBody is needed just for POST.
     app.use(koaBody());
 
-    router.post("/graphql", graphqlKoa({ schema: myGraphQLSchema }));
-    router.get("/graphql", graphqlKoa({ schema: myGraphQLSchema }));
+    router.post("/graphql", graphqlKoa({ schema }));
+    router.get("/graphql", graphqlKoa({ schema }));
 
     router.get(
       "/graphiql",
