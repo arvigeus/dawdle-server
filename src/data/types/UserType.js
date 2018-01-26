@@ -21,7 +21,7 @@ const UserType = new ObjectType({
     city: { type: StringType },
     birthdate: { type: DateTime },
     phoneNumber: { type: StringType },
-    createdAt: { type: DateTime },
+    createdAt: { type: new NonNull(DateTime) },
     updatedAt: { type: DateTime }
   }
 });

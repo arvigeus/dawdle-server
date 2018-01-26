@@ -4,7 +4,7 @@ import Model from "../sequelize";
 const User = Model.define("User", {
   id: {
     type: DataType.UUID,
-    defaultValue: DataType.UUIDV1,
+    defaultValue: DataType.UUIDV4,
     primaryKey: true
   },
 
@@ -33,5 +33,16 @@ const User = Model.define("User", {
 
   phoneNumber: DataType.STRING
 });
+
+User.associate = models => {
+  User.hasMany(models.Messages, {
+    as: "SentMessages",
+    foreignKey: { field: "senderId", allowNull: false }
+  });
+  User.hasMany(models.Messages, {
+    as: "RecievedMessages",
+    foreignKey: { field: "receiverId", allowNull: false }
+  });
+};
 
 export default User;
