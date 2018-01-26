@@ -7,7 +7,7 @@ import {
 } from "graphql";
 
 const ResponseType = new ObjectType({
-  name: "UserResponse",
+  name: "Response",
   fields: {
     ok: { type: new NonNull(BooleanType) },
     errors: { type: new List(new NonNull(StringType)) }
