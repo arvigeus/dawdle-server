@@ -35,7 +35,7 @@ import schema from "./data/schema";
       ctx.body = "Hello World";
     });
 
-    const server = http.createServer(app.callback());
+    const server = createServer(app.callback());
 
     server.listen(process.env.PORT, () =>
       console.info(`Server listening on port ${process.env.PORT}`)

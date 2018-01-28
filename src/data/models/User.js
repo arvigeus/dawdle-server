@@ -1,47 +1,34 @@
-import DataType from "sequelize";
+import { UUID, UUIDV4, STRING } from "sequelize";
 import Model from "../sequelize";
 
 const User = Model.define("User", {
   id: {
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
+    type: UUID,
+    defaultValue: UUIDV4,
     primaryKey: true
   },
 
   email: {
-    type: DataType.STRING(255),
+    type: STRING(255),
     unique: true,
     validate: { isEmail: true }
   },
 
-  givenName: DataType.STRING,
-
-  familyName: DataType.STRING,
-
-  picture: {
-    type: DataType.STRING,
-    validate: { isUrl: true }
-  },
-
-  gender: DataType.STRING(50),
-
-  country: DataType.STRING,
-
-  city: DataType.STRING,
-
-  birthdate: DataType.DATE,
-
-  phoneNumber: DataType.STRING
+  phoneNumber: STRING(30)
 });
 
-User.associate = models => {
-  User.hasMany(models.Messages, {
+User.associate = ({ Message, Friend }) => {
+  User.hasMany(Message, {
     as: "SentMessages",
     foreignKey: { field: "senderId", allowNull: false }
   });
-  User.hasMany(models.Messages, {
+  User.hasMany(Message, {
     as: "RecievedMessages",
     foreignKey: { field: "receiverId", allowNull: false }
+  });
+  User.hasMany(Friend, {
+    as: "Friends",
+    foreignKey: { field: "createdBy", allowNull: false }
   });
 };
 
