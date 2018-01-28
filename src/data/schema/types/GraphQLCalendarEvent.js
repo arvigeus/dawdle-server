@@ -35,7 +35,7 @@ const GraphQLCalendarEvent = new GraphQLObjectType({
     address: { type: GraphQLString },
     description: { type: GraphQLString },
     tags: { type: new GraphQLList(new GraphQLNonNull(GraphQLString)) },
-    remindMe: { type: new GraphQLNonNull(GraphQLBoolean) },
+    remindMeAt: { type: GraphQLDateTime },
     createdAt: { type: new GraphQLNonNull(GraphQLDateTime) },
     updatedAt: { type: GraphQLDateTime }
   }

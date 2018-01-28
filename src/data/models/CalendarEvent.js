@@ -32,10 +32,8 @@ const CalendarEvent = Model.define("CalendarEvent", {
 
   tags: ARRAY(STRING),
 
-  remindMe: {
-    type: BOOLEAN,
-    validate: { allowNull: true }
-  }
+  // If not null will send notification to user
+  remindMeAt: DATE
 });
 
 CalendarEvent.associate = ({ User, Friend }) => {
