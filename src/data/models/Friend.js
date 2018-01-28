@@ -1,4 +1,4 @@
-import { UUID, UUIDV4, STRING, DATE } from "sequelize";
+import { UUID, UUIDV4, STRING, DATEONLY } from "sequelize";
 import Model from "../sequelize";
 
 const Friend = Model.define("Friend", {
@@ -17,7 +17,7 @@ const Friend = Model.define("Friend", {
 
   name: STRING(50),
 
-  birthdate: DATE,
+  birthdate: DATEONLY,
 
   gender: STRING(50),
 

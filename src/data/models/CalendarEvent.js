@@ -1,4 +1,4 @@
-import { UUID, UUIDV4, STRING, DATE, ENUM, ARRAY, BOOLEAN } from "sequelize";
+import { UUID, UUIDV4, STRING, DATE, ENUM, ARRAY } from "sequelize";
 import Model from "../sequelize";
 
 // TODO: Use device for sending notifications
