@@ -56,7 +56,7 @@ export const refreshTokens = async (token, refreshToken, models) => {
 
   if (!await bcrypt.compare(deviceToken, device.token)) return {};
 
-  const refreshSecret = user.id + process.env.JWT_SECRET2;
+  const refreshSecret = token + process.env.JWT_SECRET2;
 
   try {
     jwt.verify(refreshToken, refreshSecret);

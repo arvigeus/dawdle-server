@@ -1,7 +1,7 @@
-import { refreshTokens } from "../tokens";
 import jwt from "jsonwebtoken";
 
 import isEmpty from "lib/isEmpty";
+import { refreshTokens } from "../tokens";
 
 export default async (ctx, next) => {
   const token = ctx.get("x-token");

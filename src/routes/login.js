@@ -5,19 +5,10 @@ import bcrypt from "bcrypt";
 export default async ctx => {
   const { params: { id, token }, models } = ctx;
 
-  const device = models.Device.findOne({
-    include: [
-      {
-        model: models.User,
-        as: "Owner"
-      }
-    ],
-    where: { id },
-    raw: true
-  });
+  const device = models.Device.findOne({ where: { id }, raw: true });
 
   if (device && (await bcrypt.compare(token, device.token))) {
-    const refreshSecret = device.Owner.id + process.env.JWT_SECRET2;
+    const refreshSecret = token + process.env.JWT_SECRET2;
 
     const [newToken, newRefreshToken] = await createTokens(
       device.Owner,
