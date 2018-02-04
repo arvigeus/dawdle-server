@@ -5,12 +5,23 @@ import koaBody from "koa-bodyparser";
 import cors from "@koa/cors";
 import { graphqlKoa, graphiqlKoa } from "apollo-server-koa";
 
+import getModels from "./data/models";
 import schema from "./data/schema";
 
 (async () => {
   try {
     const app = new Koa();
     const router = new koaRouter();
+
+    app.context.models = await getModels();
+
+    if (process.env.NODE_ENV === "development")
+      app.use(async (ctx, next) => {
+        const started = Date.now();
+        await next();
+        // once all middleware below completes, this continues
+        ctx.set("X-ResponseTime", Date.now() - started + "ms");
+      });
 
     app.use(cors("*"));
 
