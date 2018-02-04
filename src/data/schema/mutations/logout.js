@@ -1,22 +1,26 @@
-import {
-  GraphQLBoolean as BooleanType,
-  GraphQLString as StringType,
-  GraphQLNonNull as NonNull
-} from "graphql";
+import { GraphQLBoolean } from "graphql";
 
-import UserDevice from "../models/UserDevice";
+import GraphQLResponse from "../types/GraphQLResponse";
+import { requiresAuth } from "permissions";
 
-const login = {
-  type: BooleanType,
+export default {
+  type: GraphQLResponse,
   args: {
-    id: { type: new NonNull(StringType) },
-    token: { type: new NonNull(StringType) }
+    allDevices: { type: GraphQLBoolean }
   },
-  resolve: value => {
-    // TODO: try/catch, format errors
-    UserDevice.destroy({ where: { id, token } });
-    return true;
-  }
-};
+  resolve: requiresAuth.createResolver(
+    async (parent, { allDevices }, { user, device }) => {
+      try {
+        if (!allDevices) user.removeDevice(device);
+        else await user.setDevices([]);
 
-export default login;
+        return { ok: true };
+      } catch (e) {
+        return {
+          ok: false,
+          errors: [e.message]
+        };
+      }
+    }
+  )
+};

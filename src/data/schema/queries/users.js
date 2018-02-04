@@ -1,9 +1,7 @@
-import UserType from "../types/UserType";
-import User from "../models/User";
+import { GraphQLList, GraphQLNonNull } from "graphql";
+import GraphQLUser from "../types/GraphQLUser";
 
-const users = {
-  type: UserType,
-  resolve: () => User.findAll()
+export default {
+  type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLUser))),
+  resolve: (parent, args, { models }) => models.User.findAll()
 };
-
-export default users;

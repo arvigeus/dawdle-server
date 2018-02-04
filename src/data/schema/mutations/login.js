@@ -1,23 +1,34 @@
-import {
-  GraphQLString as StringType,
-  GraphQLNonNull as NonNull
-} from "graphql";
+import { GraphQLString, GraphQLNonNull } from "graphql";
+import crypto from "crypto-promise";
 
-import { UserResponseType } from "../types/UserType";
+import GraphQLResponse from "../types/GraphQLResponse";
+import { requiresRecaptcha } from "permissions";
 
-const login = {
-  type: UserResponseType,
+export default {
+  type: GraphQLResponse,
   args: {
-    email: { type: new NonNull(StringType) }
+    email: { type: new GraphQLNonNull(GraphQLString) },
+    "g-recaptcha-response": { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve: (value, { id }) =>
-    // If user is not registered, send confirmation (and login) mail
-    // else send login mail
-    ({
-      ok: false,
-      user: null,
-      errors: ["Not implemented"]
-    })
-};
+  resolve: requiresRecaptcha.createResolver(
+    async (parent, { email }, { models }) => {
+      try {
+        const user = await models.User.findOrCreate({ where: { email } });
 
-export default login;
+        const token = (await crypto.randomBytes(22)).toString("hex");
+        const device = await models.Device.create({ token });
+        await user.addDevice(device);
+
+        // TODO: Send login email
+        // sendEmail({ id: device.id, token })
+
+        return { ok: true };
+      } catch (e) {
+        return {
+          ok: false,
+          errors: [e.message]
+        };
+      }
+    }
+  )
+};

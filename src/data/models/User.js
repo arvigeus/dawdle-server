@@ -17,7 +17,7 @@ const User = Model.define("User", {
   phoneNumber: STRING(30)
 });
 
-User.associate = ({ Message, Friend }) => {
+User.associate = ({ Message, Friend, Device }) => {
   User.hasMany(Message, {
     as: "SentMessages",
     foreignKey: { field: "senderId", allowNull: false }
@@ -29,6 +29,10 @@ User.associate = ({ Message, Friend }) => {
   User.hasMany(Friend, {
     as: "Friends",
     foreignKey: { field: "createdBy", allowNull: false }
+  });
+  User.hasMany(Device, {
+    as: "Devices",
+    foreignKey: { field: "userId", allowNull: false }
   });
 };
 
