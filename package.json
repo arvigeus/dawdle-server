@@ -92,6 +92,7 @@
     "crypto-promise": "^2.0.0",
     "graphql": "^0.12.3",
     "graphql-iso-date": "^3.4.0",
+    "jsonwebtoken": "^8.1.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
     "pg": "^7.4.1",

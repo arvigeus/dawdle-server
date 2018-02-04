@@ -15,13 +15,8 @@ import schema from "./data/schema";
 
     app.context.models = await getModels();
 
-    if (process.env.NODE_ENV === "development")
-      app.use(async (ctx, next) => {
-        const started = Date.now();
-        await next();
-        // once all middleware below completes, this continues
-        ctx.set("X-ResponseTime", Date.now() - started + "ms");
-      });
+    if (process.env.NODE_ENV !== "production")
+      app.use(require("middleware/responseTime").default);
 
     app.use(cors("*"));
 
