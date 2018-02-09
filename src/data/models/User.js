@@ -1,4 +1,4 @@
-import { UUID, UUIDV4, STRING } from "sequelize";
+import { UUID, UUIDV4, STRING, DATE } from "sequelize";
 import Model from "../sequelize";
 
 const User = Model.define("User", {
@@ -14,7 +14,9 @@ const User = Model.define("User", {
     validate: { isEmail: true }
   },
 
-  phoneNumber: STRING(30)
+  phoneNumber: STRING(30),
+
+  confirmedAt: DATE
 });
 
 User.associate = ({ Message, Friend, FriendRequest, Device, Note, Todo }) => {
