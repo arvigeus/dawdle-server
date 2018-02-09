@@ -41,6 +41,7 @@ CalendarEvent.associate = ({ User, Friend }) => {
     as: "CreatedBy",
     foreignKey: { field: "createdBy", allowNull: false }
   });
+
   CalendarEvent.belongsTo(Friend, {
     as: "Friend",
     foreignKey: { field: "friendId", allowNull: false }

@@ -28,6 +28,7 @@ Message.associate = ({ User }) => {
     as: "Sender",
     foreignKey: { field: "senderId", allowNull: false }
   });
+
   Message.belongsTo(User, {
     as: "Reciever",
     foreignKey: { field: "receiverId", allowNull: false }

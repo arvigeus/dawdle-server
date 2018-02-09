@@ -25,6 +25,7 @@ Note.associate = ({ User, Friend }) => {
     as: "CreatedBy",
     foreignKey: { field: "createdBy", allowNull: false }
   });
+
   Note.belongsTo(Friend, {
     as: "Friend",
     foreignKey: { field: "friendId", allowNull: false }

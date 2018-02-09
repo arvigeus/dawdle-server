@@ -1,4 +1,4 @@
-import { UUID, UUIDV4, STRING, DATEONLY } from "sequelize";
+import { UUID, UUIDV4, STRING, DATEONLY, REAL } from "sequelize";
 import Model from "../sequelize";
 
 const Friend = Model.define("Friend", {
@@ -34,22 +34,39 @@ const Friend = Model.define("Friend", {
 
   occupation: STRING(100),
 
-  description: STRING(4000)
+  description: STRING,
+
+  health: {
+    type: REAL,
+    validate: { min: 0, max: 100 }
+  }
 });
 
-Friend.associate = ({ User, Friend, Note }) => {
+Friend.associate = ({ User, CalendarEvent, Note, Todo }) => {
   Friend.belongsTo(User, {
     as: "CreatedBy",
     foreignKey: { field: "createdBy", allowNull: false }
   });
+
   // A user may create friend for non existing user, then userId would be null
-  // When that friend registers in the system, it can be connected with that user
+  // When that friend registers in the system, the user will be prompted to send a friend request
   Friend.belongsTo(User, {
     as: "User",
     foreignKey: "userId"
   });
+
+  Friend.hasMany(CalendarEvent, {
+    as: "CalendarEvents",
+    foreignKey: { field: "friendId", allowNull: false }
+  });
+
   Friend.hasMany(Note, {
     as: "Notes",
+    foreignKey: { field: "friendId", allowNull: false }
+  });
+
+  Friend.hasMany(Todo, {
+    as: "Todos",
     foreignKey: { field: "friendId", allowNull: false }
   });
 };
