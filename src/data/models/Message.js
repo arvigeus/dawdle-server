@@ -20,7 +20,9 @@ const Message = Model.define("Message", {
 
   seenAt: DATE,
 
-  tags: ARRAY(STRING)
+  senderTags: ARRAY(STRING),
+
+  receiverTags: ARRAY(STRING)
 });
 
 Message.associate = ({ User }) => {

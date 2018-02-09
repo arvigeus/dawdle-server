@@ -25,7 +25,8 @@ const GraphQLMessage = new GraphQLObjectType({
     text: { type: new GraphQLNonNull(GraphQLString) },
     status: { type: new GraphQLNonNull(GraphQLMessageStatus) },
     seenAt: { type: GraphQLDateTime },
-    tags: { type: new GraphQLList(new GraphQLNonNull(GraphQLString)) },
+    senderTags: { type: new GraphQLList(new GraphQLNonNull(GraphQLString)) },
+    receiverTags: { type: new GraphQLList(new GraphQLNonNull(GraphQLString)) },
     createdAt: { type: new GraphQLNonNull(GraphQLDateTime) },
     updatedAt: { type: GraphQLDateTime }
   }
