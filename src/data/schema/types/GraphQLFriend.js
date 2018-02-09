@@ -4,7 +4,8 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLBoolean,
-  GraphQLList
+  GraphQLList,
+  GraphQLFloat
 } from "graphql";
 
 import { GraphQLDateTime } from "graphql-iso-date";
@@ -29,7 +30,7 @@ const GraphQLFriend = new GraphQLObjectType({
     address: { type: GraphQLString },
     occupation: { type: GraphQLString },
     description: { type: GraphQLString },
-    createdBy: { type: new GraphQLNonNull(GraphQLUser) },
+    health: { type: new GraphQLNonNull(GraphQLFloat) },
     user: { type: GraphQLUser },
     events: { type: new GraphQLList(new GraphQLNonNull(GraphQLCalendarEvent)) },
     notes: { type: new GraphQLList(new GraphQLNonNull(GraphQLNote)) },
