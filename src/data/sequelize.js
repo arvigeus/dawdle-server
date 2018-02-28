@@ -11,7 +11,8 @@ const sequelize = new Sequelize(
     dialect: "postgres",
     operatorsAliases: Sequelize.Op,
     host: process.env.DB_HOST,
-    logging: true,
+    // eslint-disable-next-line no-console
+    logging: process.env.NODE_ENV === "production" ? false : console.log, // TODO: Find better logging solution
     define: {
       freezeTableName: true,
       underscored: true

@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import { createServer } from "http";
 import Koa from "koa";
 import koaBody from "koa-bodyparser";

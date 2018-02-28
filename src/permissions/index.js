@@ -1,7 +1,6 @@
-import requiresAuth from "./requiresAuth";
-import requiresRecaptcha from "./requiresRecaptcha";
+import auth from "./requiresAuth";
+import recaptcha from "./requiresRecaptcha";
 
-export default {
-  requiresAuth,
-  requiresRecaptcha
-};
+export const requiresAuth = auth;
+
+export const requiresRecaptcha = recaptcha;
