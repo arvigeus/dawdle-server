@@ -1,0 +1,41 @@
+enum RecurrenceType {
+  hourly
+  daily
+  weekly
+  monthly
+  yearly
+}
+
+type CalendarEvent {
+  id: ID!
+  title: String!
+  picture: String
+  startDate: DateTime
+  endDate: DateTime
+  recurrence: RecurrenceType
+  nextStartDate: DateTime
+  nextEndDate: DateTime
+  address: String
+  description: String
+  tags: [String!]
+  remindMeAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type CalendarEventResponse {
+  ok: Boolean!
+  calendarEvent: CalendarEvent
+  errors: [String!]
+}
+
+type Query {
+  event(id: ID!): CalendarEvent
+  events(text: String, startDate: DateTime, endDate: DateTime, recurrence: RecurrenceType, nextStartDate: DateTime, nextEndDate: DateTime, tags: [String!]): [CalendarEvent]
+}
+
+type Mutation {
+  addCalendarEvent(title: String!, picture: String, startDate: DateTime, endDate: DateTime, recurrence: RecurrenceType, nextStartDate: DateTime, nextEndDate: DateTime, address: String, description: String, tags: [String!], remindMeAt: DateTime): CalendarEventResponse!
+  removeCalendarEvent(id: ID!): CalendarEvent
+  updateCalendarEvent(id: ID!, title: String!, picture: String, startDate: DateTime, endDate: DateTime, recurrence: RecurrenceType, nextStartDate: DateTime, nextEndDate: DateTime, address: String, description: String, tags: [String!], remindMeAt: DateTime): CalendarEventResponse!
+}

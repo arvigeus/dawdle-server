@@ -1,0 +1,23 @@
+type Note {
+  id: ID!
+  text: String!
+  tags: [String!]
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type NoteResponse {
+  ok: Boolean!
+  note: Note
+  errors: [String!]
+}
+
+type Query {
+  notes(text: String, tags: [String!]): [Note!]
+}
+
+type Mutation {
+  addNote(friendId: ID!, text: String!, tags: [String!]): NoteResponse!
+  removeNote(id: ID!): NoteResponse
+  updateNote(id: ID!, text: String!, tags: [String!]): NoteResponse!
+}

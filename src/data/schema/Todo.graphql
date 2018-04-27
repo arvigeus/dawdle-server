@@ -1,0 +1,25 @@
+type Todo {
+  id: ID!
+  text: String!
+  tags: [String!]
+  endDate: DateTime
+  isCompleted: Boolean
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type TodoResponse {
+  ok: Boolean!
+  todo: Todo
+  errors: [String!]
+}
+
+type Query {
+  todos(text: String, tags: [String!], endDate: DateTime, isCompleted: Boolean): [Todo!]
+}
+
+type Mutation {
+  addTodo(friendId: ID!, text: String!, tags: [String!]): TodoResponse!
+  removeTodo(id: ID!): TodoResponse
+  updateTodo(id: ID!, text: String!, tags: [String!], endDate: DateTime, isCompleted: Boolean): TodoResponse!
+}

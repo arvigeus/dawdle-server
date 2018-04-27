@@ -8,6 +8,8 @@ const Friend = Model.define("Friend", {
     primaryKey: true
   },
 
+  nickname: STRING(50),
+
   email: {
     type: STRING(255),
     validate: { isEmail: true }
@@ -35,11 +37,6 @@ const Friend = Model.define("Friend", {
   occupation: STRING(100),
 
   description: STRING,
-
-  health: {
-    type: REAL,
-    validate: { min: 0, max: 100 }
-  }
 });
 
 Friend.associate = ({ User, CalendarEvent, Note, Todo }) => {

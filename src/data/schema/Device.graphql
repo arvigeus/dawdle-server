@@ -1,0 +1,24 @@
+type Device {
+  id: ID!
+  name: String
+  token: String!
+  confirmedAt: DateTime
+  lastLogin: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type DeviceResponse {
+  ok: Boolean!
+  device: Device
+  errors: [String!]
+}
+
+type Query {
+  devices: [Device!]
+}
+
+type Mutation {
+  removeDevice(id: ID): DeviceResponse # Also logout
+  updateDevice(id: ID!, name: String): DeviceResponse!
+}

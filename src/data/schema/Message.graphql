@@ -1,0 +1,32 @@
+enum MessageStatus {
+  sent
+  delivered
+  failed
+}
+
+type Message {
+  id: ID!
+  text: String!
+  status: MessageStatus!
+  seenAt: DateTime
+  tags: [String!]
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type MessageResponse {
+  ok: Boolean!
+  message: Message
+  errors: [String!]
+}
+
+type Query {
+  messages(userId: ID!, tags: [String!]): [Message!]
+}
+
+type Mutation {
+  addMessage(userId: ID!, text: String!): MessageResponse!
+  removeMessage(id: ID!): MessageResponse
+  updateMessage(id: ID!, text: String, tags: [String!]): MessageResponse!
+  messageSetSeen(id: ID!): MessageResponse!
+}

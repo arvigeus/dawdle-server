@@ -1,0 +1,29 @@
+enum FriendRequestStatus {
+  pending
+  approved
+  declined
+}
+
+type FriendRequest {
+  id: ID!
+  sender: String! # Email
+  status: FriendRequestStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type FriendRequestResponse {
+  ok: Boolean!
+  friendRequest: FriendRequest
+  errors: [String!]
+}
+
+type Query {
+  friendRequests(status: FriendRequestStatus): [FriendRequest!]
+}
+
+type Mutation {
+  addFriendRequest(email: String!): FriendRequestResponse!
+  removeFriendRequest(id: ID!): FriendRequestResponse # Should not work if status is "declined"
+  updateFriendRequest(status: FriendRequestStatus!): FriendRequestResponse!
+}

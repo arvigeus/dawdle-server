@@ -7,9 +7,11 @@ const FriendRequest = Model.define("FriendRequest", {
     defaultValue: UUIDV4,
     primaryKey: true
   },
-
-  // Cancelled friendships only affect the ability to send messages
-  isCancelled: BOOLEAN
+  
+  status: {
+    type: ENUM("pending", "approved", "declined"),
+    validate: { allowNull: false }
+  },
 });
 
 FriendRequest.associate = ({ User }) => {

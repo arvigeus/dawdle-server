@@ -1,0 +1,24 @@
+type User {
+  id: ID!
+  email: String
+  phoneNumber: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type UserResponse {
+  ok: Boolean!
+  user: User
+  errors: [String!]
+}
+
+type Query {
+  me: User!
+}
+
+type Mutation {
+  login(email: String!): UserResponse!
+  logout(): Response!
+  forgetMe: Response!
+  updateMe(phone: String!): User!
+}

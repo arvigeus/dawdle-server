@@ -1,0 +1,37 @@
+type Friend {
+  id: ID!
+  email: String
+  nickname: String
+  phoneNumber: String
+  name: String!
+  birthdate: DateTime
+  gender: String
+  picture: String
+  country: String
+  city: String
+  address: String
+  occupation: String
+  description: String
+  user: User
+  createdAt: GraphQLDateTime!
+  updatedAt: GraphQLDateTime
+}
+
+type FriendResponse {
+  ok: Boolean!
+  friend: Friend
+  errors: [String!]
+}
+
+union IDorNickname = ID | String
+
+type Query {
+  friend(id: IDorNickname!): Friend
+  friends: [Friend!]
+}
+
+type Mutation {
+  addFriend(name: String!): FriendResponse!
+  removeFriend(id: ID!): FriendResponse
+  updateFriend(email: String, nickname: String, phoneNumber: String, name: String!, birthdate: DateTime, gender: String, picture: String, country: String, city: String, address: String, occupation: String, description: String): FriendResponse!
+}
